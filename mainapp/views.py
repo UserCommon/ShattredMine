@@ -26,9 +26,13 @@ class PostList(View):
     template = 'news/index.html'
 
     def get(self, request):
-        profile = Profile.objects.get(user=request.user)
         posts = Post.objects.all()
-        return render(request, 'news/index.html', context={'posts': posts, 'profile': profile})
+        if request.user.is_authenticated:
+            profile = Profile.objects.get(user=request.user)
+            return render(request, 'news/index.html', context={'posts': posts, 'profile': profile})
+
+        else:
+            return render(request, 'news/index.html', context={'posts': posts})
 
 
 class PostDetail(ObjectDetailMixin, View):
