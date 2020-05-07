@@ -7,10 +7,11 @@
 {% endblock %}
 
 {% block content %}
-    <div class="container">
+    <div class="container wow fadeIn">
+    {% if user.is_authenticated %}
       <h1 class='text-center'>Планы</h1>
       <div class="card-deck">
-        <div class="card text-white bg-danger mb-3 text-center" style="width: 18rem;">
+<!--          <div class="card text-white bg-danger mb-3 text-center" style="width: 18rem;">
           <img src="{% static 'img/card3.png' %}" class="card-img-top" alt="...">
           <div class="card-body">
             <h5 class="card-title">На месяц.</h5>
@@ -19,15 +20,29 @@
               <a href="https://www.donationalerts.com/r/tripleshard" class="btn btn-primary">Купить!</a>
           </div>
         </div>
+        ---!>
+          <div class="card text-white bg-success mb-3 text-center" style="width: 18rem;">
+          <img src="{% static 'img/card2.png' %}" class="card-img-top" alt="...">
+
+          <div class="card-body">
+            <h5 class="card-title">С осмотром</h5>
+            <p class="card-text text-center">Мы пропустим вас на сервер, однако мы имеем право не брать вас на сервер.</p>
+              <p class="cart-text text-center">Бесплатно</p>
+            <a href="https://www.donationalerts.com/r/tripleshard" class="btn btn-primary">Купить!</a>
+          </div>
+        </div>
+
         <div class="card text-white bg-dark mb-3 text-center" style="width: 18rem;">
           <img src="{% static 'img/card1.png' %}" class="card-img-top" alt="...">
+
           <div class="card-body">
-            <h5 class="card-title">Навсегда</h5>
-            <p class="card-text text-center">Приобритая данную подписку вы получите проходку навсегда.</p>
+            <h5 class="card-title">Проход без осмотра</h5>
+            <p class="card-text text-center">Мы пропустим вас на сервер без осмотра.</p>
               <p class="cart-text text-center">300 Рублей</p>
             <a href="https://www.donationalerts.com/r/tripleshard" class="btn btn-primary">Купить!</a>
           </div>
         </div>
+<!--
         <div class="card text-white bg-success mb-3 text-center" style="width: 18rem;">
           <img src="{% static 'img/card2.png' %}" class="card-img-top" alt="...">
           <div class="card-body">
@@ -36,7 +51,14 @@
             <p class="cart-text text-center">150 Рублей</p>
               <a href="https://www.donationalerts.com/r/tripleshard" class="btn btn-primary">Купить!</a>
           </div>
+
         </div>
+---!>
       </div>
+    {% else %}
+        <h1 class="text-center text-wrap">Упс... кажется, что вы не авторизованы.</h1>
+        <h2 class="text-center"><a href="{% url 'login_url' %}">Войти</a> <a href="{% url 'register_url' %}">Зарегестрироваться</a></h2>
+    {% endif %}
+
     </div>
 {% endblock %}
