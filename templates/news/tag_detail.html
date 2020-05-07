@@ -1,0 +1,12 @@
+{% extends 'news/base_blog.html'%}
+
+{% block title %}
+  {{ tag.title }} {{ block.super }}
+{% endblock %}
+
+{% block content %}
+  <h1 class="mb3 text-center mt-3">Новости с тэгом "{{ tag.title|title }}":</h1>
+  {% for post in tag.posts.all %}
+    {% include 'news/includes/post_card_template.html'%}
+  {% endfor %}
+{% endblock %}

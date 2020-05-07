@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+
+{% block title %}
+  Профиль {{ block.super }}
+{% endblock %}
+
+{% block content %}
+  <div class="container">
+    <h1>Вы действительно хотите выйти?</h1>
+    <a href="{% url 'fulllogout_url' %}" class="btn btn-outline-primary">Да.</a>
+    <a href="{% url 'accounts_main' %}" class="btn btn-outline-primary">Нет.</a>
+  </div>
+{% endblock %}

@@ -1,0 +1,20 @@
+
+<div class="card mb-3" style='width: 40rem; margin: 0 auto;'>
+
+        {% if post.preview %}<img src="{{ post.preview.url }}" class="card-img-top" alt="...">{% else %}{% endif %}
+
+    <div class="card-header">
+    {{ post.date_pub }}
+  </div>
+  <div class="card-body">
+    <h5 class="card-title">{{ post.title }}</h5>
+    <p class="card-text">{{ post.body|truncatewords:15 }}</p>
+    <a href="{{ post.get_absolute_url }}" class="btn btn-primary">Read</a>
+  </div>
+  <div class="card-footer text-muted">
+    Tags:
+    {% for tag in post.tags.all %}
+        <a href="{{ tag.get_absolute_url }}">{{ tag.title }}</a>
+    {% endfor %}
+  </div>
+</div>

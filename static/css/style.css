@@ -1,0 +1,161 @@
+body{
+  min-width: 320px;
+  font-size: 24px;
+  font-family: 'Roboto', sans-serif;
+  color: #2d3943;
+
+}
+
+img{
+  max-width: 100%;
+  height: auto;
+}
+
+a{
+  color: #546a7d;
+}
+
+a:hover {
+  color: #2d3943;
+}
+
+.media-panel {
+  border: 1px solid #999;
+  border-radius: 10px;
+  position: fixed;
+  right: 50px;
+  bottom: 30px;
+  opacity: 0.3;
+  padding: 15px;
+
+}
+
+.media-panel a {
+  display: block;
+  margin-top: 10px;
+}
+
+.media-panel:hover {
+  opacity: 1;
+}
+
+header .navbar-brand{
+  font-size: 36px;
+  font-weight: bold;
+  margin-left: 20px;
+}
+
+header .collapse {
+  margin-right: 20px;
+  font-size: 24px;
+}
+
+header .navbar-collapse{
+  margin-left: 20px;
+}
+header .nav-item {
+  margin-left: 50px;
+}
+
+header .nav-item a::after{
+  content: '';
+  display: block;
+  width: 100%;
+  background-color: #2d3943;
+  height: 1px;
+  transform: scale(0);
+  transition: all .3s;
+}
+
+header .nav-item a:hover::after{
+  transform: scale(1);
+}
+
+footer a{
+  color: #fff;
+  transition: all .3s;
+}
+
+.subcontent{
+  margin: 0 auto;
+  max-width: 1280px;
+  margin-top: 10px;
+}
+
+.subcontent .title{
+  font-size: 36px;
+  font-weight: bold;
+}
+
+.shadow {
+  box-shadow:  0 0 20px rgba(0,0,0,0.5);
+}
+
+.subcontent .sub-title {
+
+  font-size: 24px;
+  font-weight: normal;
+}
+
+.container{
+  margin-top: 20px;
+  margin-bottom: 10px;
+}
+
+footer{
+  background-color: #2b87d3;
+  padding: 30px 0;
+  color: fff;
+}
+
+.subcontent .description {
+
+}
+
+.card {
+  margin: 20px 0px;
+}
+
+@media only screen and (max-width : 1200px) {
+
+}
+
+@media only screen and (max-width : 1199px) {
+
+}
+
+@media only screen and (max-width : 992px) {
+
+}
+
+@media only screen and (max-width : 991px) {
+
+}
+
+@media only screen and (max-width : 768px) {
+
+}
+
+@media only screen and (max-width : 767px) {
+
+}
+
+@media only screen and (max-width : 480px) {
+
+}
+
+/*
+####################################################
+M E D I A  Q U E R I E S
+####################################################
+*/
+
+/*
+::::::::::::::::::::::::::::::::::::::::::::::::::::
+Bootstrap 4 breakpoints
+*/
+
+/*
+Extra small devices (portrait phones, less than 544px)
+No media query since this is the default in Bootstrap because it is "mobile first"
+*/

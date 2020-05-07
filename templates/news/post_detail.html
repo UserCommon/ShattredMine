@@ -1,0 +1,32 @@
+{% extends 'news/base_blog.html' %}
+
+
+{% block title %}
+  {{ post.title }} {{ block.super }}
+{% endblock%}
+
+{% block content %}
+  <div class="container">
+    <h1 class="mt-5 text-center">
+      {{ post.title }}
+    </h1>
+    <h3>
+      {{ post.body }}
+    </h3>
+
+      <div class="mt-3 d-flex justify-content-between" style="border-top: 2px solid black;">
+          <div class="info-left">
+
+            <h4>
+              Автор: {{ post.author }}
+            </h4>
+              <img src="{{ post.author.get_thumb_image_url }}" alt="" class="ml-5" style="width: 75px;">
+          </div>
+          <div class="info-right">
+            <h4>
+              {{ post.date_pub }}
+            </h4>
+          </div>
+      </div>
+    </div>
+{% endblock %}

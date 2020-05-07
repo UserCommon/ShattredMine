@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+
+
+{% block title %}
+  Профиль {{ block.super }}
+{% endblock %}
+
+{% block content %}
+  <div class="container">
+
+
+      {% if user.is_authenticated %}
+          <h1 class='text-center'>Ваш профиль</h1>
+          <div class="d-flex justify-content-start">
+            <div class="profile-left mr-5">
+              <h2 class="text-left">{{ user.username }}</h2>
+              <div class="text-center">
+                <img class="" src="{{ user.profile.get_thumb_image_url }}" alt="Avatar">
+              </div>
+
+            </div>
+            <div class="profile-right">
+                  <h3 class="text-left"> Вы зарегестрировались: {{ user.date_joined }}</h3>
+                  <h4 class="text-left"> Подписка: {% if user.profile.subscription %}Есть{% else %}Нету{% endif %}</h4>
+                  <form class="" enctype="multipart/form-data" method="post">
+                      {% csrf_token %}
+                      {{ form }}
+                      <button type="submit" class="btn btn-primary">Сменить скин</button>
+                  <h4 class="text-left">{% if profile.is_media %}Вы являетесь репортёром{% else %}У вас нету статуса репортёра{% endif %}</h4>
+              </form>
+            </div>
+          </div>
+          <a href="{% url 'logout_url' %}" class="btn btn-outline-primary mt-5">Выйти</a>
+        {% else %}
+          <h1 class="text-center">Похоже, что у вас нету аккаунта или вы не зашли.</h1>
+          <a class="btn btn-outline-primary" href = "{% url 'register_url' %}">Зарегестрироваться</a>
+          <a class="btn btn-outline-primary" href="{% url 'login_url' %}">Войти</a>
+        {% endif %}
+
+  </div>
+{% endblock %}

@@ -1,0 +1,31 @@
+{% extends 'news/base_blog.html' %}
+
+{% block title %}
+    Создать пост  {{ block.super }}
+{% endblock %}
+
+{% block content %}
+  <div class="container">
+    <form action="{% url 'post_create_url' %}" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+
+        {% for field in form %}
+            <div class="form-group">
+                {% if field.errors %}
+                    <div class="alert alert-danger">
+                        {{ field.errors }}
+                    </div>
+                {% endif %}
+
+                {{ field.label }}
+                {{ field }}
+            </div>
+
+        {% endfor %}
+
+
+        <button type="submit" class="btn btn-primary">Создать пост!</button>
+      </form>
+    </div>
+
+{% endblock %}

@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% block media-panel %}
+    {% if profile.is_media %}
+        <div class="btn-group" role="group" aria-label="Basic example">
+            <button type="button" class="btn btn-warning dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Создать</button>
+            <div class="dropdown-menu">
+                <a class="dropdown-item" href="{% url 'post_create_url' %}" class="btn btn-light">Пост</a>
+                <a class="dropdown-item" href="{% url 'tag_create_url' %}" class="btn btn-light">Тэг</a>
+            </div>
+        </div>
+
+          <a href="{{ admin_object.get_update_url }}" class="btn btn-primary">Редактировать</a>
+          <a href="{{ admin_object.get_delete_url }}" class="btn btn-danger">Удалить</a>
+    {% else %}
+
+    {% endif %}
+{% endblock %}

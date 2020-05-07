@@ -1,1 +1,18 @@
-{% extends 'base_blog.html' %}
+{% extends 'news/base_blog.html' %}
+
+{% block title %}
+    Удалить тэг "{{tag.title|title}}" {{ block.super }}
+{% endblock %}
+
+{% block content %}
+    <form action="{{ tag.get_delete_url }}" method="post">
+        {% csrf_token %}
+        <div class="container">
+            <h3 class="text-center mt-3">Вы действительно хотите удалить <b>{{tag.title|title}}?</b></h3>
+            <div class="sub" style="margin: 0 auto">
+                <a href="{{ tag.get_absolute_url }}" class="" style="magrin: 0 auto;">Нет!</a>
+                <button type="submit" name="button" class="btn btn-danger ml-3">Да!</button>
+            </div>
+        </div>
+    </form>
+{% endblock %}

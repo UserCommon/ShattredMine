@@ -1,0 +1,91 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<!DOCTYPE html>
+<head>
+  {% block head %}
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet">
+    <title>{% block title %}  {% endblock %}</title>
+  {% endblock %}
+</head>
+
+
+<body>
+  <div class="content">
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <header>
+      <nav class="navbar navbar-expand-lg navbar-light" style="background-color: #2b87d3; min-height: 75px;">
+        <a class="navbar-brand ml-5" href="{% url 'main' %}">
+          <img src="{% static 'img/lg.png' %}" alt="" style="height:70px; width: 125px;">
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav ml-auto">
+            <li class="nav-item active">
+              <a class="nav-link" href="{% url 'main' %}">Главная <span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item active">
+              <a class="nav-link" href="{% url 'membership_main_url' %}">Пройти на сервер</a>
+            </li>
+            <li class="nav-item active">
+              <a class="nav-link" href="{% url 'posts_list_url' %}">Новости</a>
+            </li>
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Dropdown
+              </a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                <a class="dropdown-item" href="#">Action</a>
+                <a class="dropdown-item" href="#">Another action</a>
+                <div class="dropdown-divider"></div>
+                <a class="dropdown-item" href="#">Something else here</a>
+              </div>
+            </li>
+            <li class="nav-item active">
+              <a class="nav-link" href="{% url 'accounts_main' %}"> {% if user.is_authenticated %}Профиль{% else %}Вход{% endif %}</a>
+            </li>
+          </ul>
+        </div>
+      </nav>
+    </header>
+    {% block content %}
+
+    {% endblock %}
+
+    <div class="media-panel align-items-center">
+      {% block media-panel %}
+
+      {% endblock %}
+    </div>
+
+    <footer class='sticky-down'>
+      <div class="container" >
+        <div class="d-flex justify-content-between">
+          <div class="footer-left">
+            <a href="#">Условия и соглашения</a>
+            <a href="#">Правила</a>
+          </div>
+          <div class="footer-right">
+            <span>Follow</span>
+            <a href="https://vk.com/public191694215">Vk</a>
+            <a href="https://discord.gg/ZKmnj3d">Discord</a>
+            <a href="https://www.youtube.com/channel/UCBnRC66OT6CXLVK1HdeRFWA?view_as=subscriber">Youtube</a>
+          </div>
+        </div>
+      </div>
+    </footer>
+  </div>
+  <script type="text/javascript" src="{% static 'js/script.js' %}">
+
+  </script>
+</body>
+</html>
