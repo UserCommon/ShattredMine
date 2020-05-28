@@ -29,10 +29,10 @@ class PostList(View):
         posts = Post.objects.all()
         if request.user.is_authenticated:
             profile = Profile.objects.get(user=request.user)
-            return render(request, 'news/index.html', context={'posts': posts, 'profile': profile})
+            return render(request, 'news/index.html', context={'posts': posts[::-1], 'profile': profile})
 
         else:
-            return render(request, 'news/index.html', context={'posts': posts})
+            return render(request, 'news/index.html', context={'posts': posts[::-1]})
 
 
 class PostDetail(ObjectDetailMixin, View):

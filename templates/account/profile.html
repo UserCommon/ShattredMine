@@ -21,7 +21,7 @@
             </div>
             <div class="profile-right wow fadeInRight">
                   <h3 class="text-left"> Вы зарегестрировались: {{ user.date_joined }}</h3>
-                  <h4 class="text-left"> Подписка: {% if user.profile.subscription %}Есть{% else %}Нету{% endif %}</h4>
+                  <h4 class="text-left"> Доступ к серверу: {% if user.profile.subscription %}Есть{% else %}Нету{% endif %}</h4>
                   <form class="" enctype="multipart/form-data" method="post">
                       {% csrf_token %}
                       {{ form }}

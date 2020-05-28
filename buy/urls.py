@@ -3,8 +3,11 @@ from django.urls import path
 from django.urls import include
 from django.conf.urls.static import static
 from django.conf import settings
-from .views import *
+from .views import SubsriptionPageView, CheckoutView, SuccessView, SurviveView
 
 urlpatterns = [
-    path('', SubsriptionPageView.as_view(), name='membership_main_url')
+    path('', SubsriptionPageView.as_view(), name='membership_main_url'),
+    path('survive/', SurviveView.as_view(), name='survive_url'),
+    path('checkout/', CheckoutView.as_view(), name='checkout_url'),
+    path('checkout/success/', SuccessView.as_view(), name='success_url')
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
