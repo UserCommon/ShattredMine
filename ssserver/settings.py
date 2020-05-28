@@ -83,8 +83,8 @@ WSGI_APPLICATION = 'ssserver.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'main',
-        'USER': 'root',
+        'NAME': 'Shardoff.mysql.pythonanywhere-services.com',
+        'USER': 'Shardoff',
         'PASSWORD': 'silvergold3',
         'HOST': 'localhost',
         'PORT': '3306',
