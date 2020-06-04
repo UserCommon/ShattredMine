@@ -111,9 +111,13 @@
         }
     </style>
 
-    <h1 class='text-center'>Оплата</h1>
-    <div class="container">
-        <a style="" href="https://www.donationalerts.com/r/shardoffy"><img src="{% static 'img/da.png' %}" style=" width: 200px; height: 200px;" alt="Donaition Alerts"></a>
+
+    <h1 class='text-center'>Заявка</h1>
+        <div class="container">
+            <a style="" href="https://www.donationalerts.com/r/shardoffy"><img src="{% static 'img/da.png' %}" style=" width: 200px; height: 200px;" alt="Donaition Alerts"></a>
+            <a href="{% url 'form_url' %}"><img src="{% static 'img/form.png' %}" style=" width: 200px; height: 200px;" alt="Form"></a>
+        </div>
+
     <!--
         <form hidden style="" action="{% url 'checkout_url' %}" method="post" id="payment-form">
             {% csrf_token %}

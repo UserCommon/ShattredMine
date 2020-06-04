@@ -117,3 +117,4 @@ class TagCreate(View):
             return redirect(new_tag)
 
         return render(request, 'news/tag_create.html', context={'form': bound_form})
+

@@ -10,6 +10,8 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.models import User
 from django.contrib.auth import get_user_model
 
+from .forms import *
+
 from django.contrib.auth import logout
 from django.contrib.auth import authenticate, login
 
@@ -19,6 +21,8 @@ from django.http import HttpResponse, HttpResponseRedirect
 import stripe
 
 stripe.api_key = "sk_test_QEVVBWDUXUSIG6sv3OGiPlSe00tqw3T8EN"
+
+User = get_user_model()
 
 
 class SubsriptionPageView(View):
@@ -85,4 +89,36 @@ class SurviveView(View):
         return render(request, 'survive.html', context={})
 
     def post(self, request):
+        pass
+
+
+class FormView(View, LoginRequiredMixin):
+
+    def get(self, request):
+        form = PlayerClaimForm()
+        profile = get_object_or_404(Profile, user=request.user)
+        return render(request, 'form.html', context={'form': form})
+
+    def post(self, request):
+        bound_form = PlayerClaimForm(request.POST)
+        if bound_form.is_valid():
+            bound_form.save()
+            return HttpResponseRedirect('/main/')
+        else:
+            return HttpResponseRedirect('/error/')
+
+
+class AllFormView(View):
+
+    def get(self, request):
+        players_claims = PlayerClaim.objects.all()
+        if request.user.is_staff:
+            return render(request, 'all_forms.html', context={'players_claims': players_claims})
+        else:
+            return render(request, 'error.html')
+
+
+class CurrentFormView(View):
+
+    def get(self, request):
         pass

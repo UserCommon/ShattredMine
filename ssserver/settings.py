@@ -84,9 +84,9 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'main',
-        'USER': 'Shardoff',
+        'USER': 'root',
         'PASSWORD': 'silvergold3',
-        'HOST': 'Shardoff.mysql.pythonanywhere-services.com',
+        'HOST': 'localhost',
         'PORT': '3306',
     }
 }
