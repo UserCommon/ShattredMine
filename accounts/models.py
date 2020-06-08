@@ -36,11 +36,15 @@ class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, null=True)
     subscription = models.BooleanField(default=False)
     skin = models.ImageField(upload_to='media/profile/', default='media/profile/steve.png')
-    skin_thumb = models.CharField('Thumbnail image', max_length=255, blank=True)
+    skin_thumb = models.CharField('Thumbnail image', max_length=255, blank=True, default="media/profile\steve_100x100.png")
     is_media = models.BooleanField(default=False)
 
     #    email = models.EmailField(blank=True)
     #    products_list = models.ManyToManyField(Product, blank=True)
+
+    def __init__(self, *args, **kwargs):
+        super(Profile, self).__init__(*args, **kwargs)
+        self.__original_skin = self.skin.url
 
     def __str__(self):
         return self.user.username
@@ -49,22 +53,25 @@ class Profile(models.Model):
         return MEDIA_URL + self.skin_thumb
 
     def save(self, *args, **kwargs):
-        size = {'height': 100, 'width': 100}
-        super(Profile, self).save(*args, **kwargs)
+        if self.skin.url != self.__original_skin:
+            size = {'height': 100, 'width': 100}
+            super(Profile, self).save(*args, **kwargs)
 
-        extension = str(self.skin.path).rsplit('.', 1)[1]  # получаем расширение загруженного файла
-        filename = str(self.skin.path).rsplit(os.sep, 1)[1].rsplit('.', 1)[0]  # получаем имя загруженного файла (без пути к нему и расширения)
-        fullpath = str(self.skin.path).rsplit(os.sep, 1)[0]  # получаем путь к файлу (без имени и расширения)
+            extension = str(self.skin.path).rsplit('.', 1)[1]  # получаем расширение загруженного файла
+            filename = str(self.skin.path).rsplit(os.sep, 1)[1].rsplit('.', 1)[0]  # получаем имя загруженного файла (без пути к нему и расширения)
+            fullpath = str(self.skin.path).rsplit(os.sep, 1)[0]  # получаем путь к файлу (без имени и расширения)
 
-        if extension in ['jpg', 'jpeg', 'png']:  # если расширение входит в разрешенный список
-            im = Image.open(str(self.skin.path))  # открываем изображение
-            im = im.crop((8, 8, 16, 16))
-            im = im.resize((size['width'], size['height']),
-                           resample=Image.NEAREST)  # создаем миниатюру указанной ширины и высоты (важно - im.thumbnail сохраняет пропорции изображения!)
-            thumbname = filename + "_" + str(size['width']) + "x" + str(
-                size['height']) + '.' + extension  # имя нового изображения в формате oldname_60x60.jpg
-            im.save(fullpath + os.sep + thumbname)  # сохраняем полученную миниатюру
-            self.skin_thumb = profile_thumb_name(self, thumbname)  # записываем путь к ней в поле image_thumb в модели
+            if extension in ['jpg', 'jpeg', 'png']:  # если расширение входит в разрешенный список
+                im = Image.open(str(self.skin.path))  # открываем изображение
+                im = im.crop((8, 8, 16, 16))
+                im = im.resize((size['width'], size['height']),
+                               resample=Image.NEAREST)  # создаем миниатюру указанной ширины и высоты (важно - im.thumbnail сохраняет пропорции изображения!)
+                thumbname = filename + "_" + str(size['width']) + "x" + str(
+                    size['height']) + '.' + extension  # имя нового изображения в формате oldname_60x60.jpg
+                im.save(fullpath + os.sep + thumbname)  # сохраняем полученную миниатюру
+                self.skin_thumb = profile_thumb_name(self, thumbname)  # записываем путь к ней в поле image_thumb в модели
+                super(Profile, self).save(*args, **kwargs)
+        else:
             super(Profile, self).save(*args, **kwargs)
 
 
