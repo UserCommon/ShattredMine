@@ -8,21 +8,22 @@
 
 {% block content %}
     <div class="container wow fadeIn">
-    {% if user.is_authenticated %}
-        <div class="text-center">
-            <div class="card text-white bg-dark mb-3" style="width: 32rem; margin: 0 auto;">
-                <img class="card-img-top" src="{% static 'img/card1.png' %}" alt="Card image cap">
-                <div class="card-body ">
-                    <h5 class="card-title">Выжить любой ценой.</h5>
-                    <p class="card-text">Попробуйте выжить на хардкоре с необчными условиями.</p>
-                    <a href="{% url 'survive_url' %}" class="btn btn-primary">Узнать больше.</a>
-                </div>
-            </div>
-        </div>
-    {% else %}
-        <h1 class="text-center text-wrap">Упс... кажется, что вы не авторизованы.</h1>
-        <h2 class="text-center"><a href="{% url 'login_url' %}">Войти</a> <a href="{% url 'register_url' %}">Зарегестрироваться</a></h2>
-    {% endif %}
+        {% if user.is_authenticated %}
 
+                <div class="text-center">
+                    <div class="card text-white bg-dark mb-3" style="width: 32rem; margin: 0 auto;">
+                        <img class="card-img-top" src="{% static 'img/card1.png' %}" alt="Card image cap">
+                        <div class="card-body ">
+                            <h5 class="card-title">Ванилька.</h5>
+                            <p class="card-text">Просто ламповый сервер.</p>
+                            <a href="{% url 'survive_url' %}" class="btn btn-primary">Узнать больше.</a>
+                        </div>
+                    </div>
+                </div>
+
+        {% else %}
+            <h1 class="text-center text-wrap">Упс... кажется, что вы не авторизованы.</h1>
+            <h2 class="text-center"><a href="{% url 'login_url' %}">Войти</a> <a href="{% url 'register_url' %}">Зарегестрироваться</a></h2>
+        {% endif %}
     </div>
 {% endblock %}

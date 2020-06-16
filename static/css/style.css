@@ -1,9 +1,22 @@
+* {
+  margin: 0;
+}
+
+html, body {
+  height: 100%;
+}
+
 body{
-  min-width: 320px;
+
   font-size: 24px;
   font-family: 'Roboto', sans-serif;
   color: #2d3943;
 }
+
+.steve{
+  width: 250px; height: 320px;
+}
+
 
 img{
   max-width: 100%;
@@ -87,16 +100,29 @@ footer a{
 }
 
 .shadow {
-  box-shadow:  0 0 20px rgba(0,0,0,0.5);
+  box-shadow: 0 0 20px rgba(0,0,0,0.5);
 }
 
-.subcontent .sub-title {
+.card-img-top{
+  width:100%;
+  height:auto;
+}
 
+
+
+.subcontent .sub-title {
   font-size: 24px;
   font-weight: normal;
 }
 
+.content{
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
 .container{
+  flex-grow: 1;
   margin-top: 20px;
   margin-bottom: 10px;
 }
@@ -105,9 +131,6 @@ footer{
   background-color: #2b87d3;
   padding: 30px 0;
   color: fff;
-}
-
-.subcontent .description {
 
 }
 
@@ -116,11 +139,43 @@ footer{
 }
 
 @media only screen and (max-width : 1200px) {
+  .steve{
+    width: 250px; height: 320px;
+  }
 
+  .card-text{
+
+  }
+
+  .card-title{
+
+  }
+
+  .card-header{
+
+  }
+
+  .text-muted{
+
+  }
 }
 
 @media only screen and (max-width : 1199px) {
+  .card-text{
+    font-size: 24px;
+  }
 
+  .card-title{
+    font-size: 28px;
+  }
+
+  .card-header{
+    font-size: 18px;
+  }
+
+  .text-muted{
+    font-size: 18px;
+  }
 }
 
 @media only screen and (max-width : 992px) {
@@ -128,25 +183,92 @@ footer{
 }
 
 @media only screen and (max-width : 991px) {
+  .card-text{
+
+  }
+
+  .card-title{
+
+  }
+
+  .card-header{
+
+  }
+
+  .text-muted{
+
+  }
+
+  .steve{
+    width: 230px; height: 250px;
+  }
 
 }
 
 @media only screen and (max-width : 768px) {
+    .card-text{
 
+  }
+
+  .card-title{
+    font-size: 32px;
+  }
+
+  .card-header{
+
+  }
+
+  .text-muted{
+
+  }
 }
 
 @media only screen and (max-width : 767px) {
+    .card-text{
+
+  }
+
+  .card-title{
+    font-size: 32px;
+  }
+
+  .card-header{
+
+  }
+
+  .text-muted{
+
+  }
 
 }
 
-@media only screen and (max-width : 480px) {
+@media only screen and (min-width : 480px) {
+  .card-text{
+    font-size: 36px;
+  }
 
+  .card-title{
+    font-size: 42px;
+  }
+
+  .card-header{
+
+  }
+
+  .text-muted{
+    font-size: 32px;
+  }
+
+  .container{
+
+  }
 }
 
 /*
 ####################################################
 M E D I A  Q U E R I E S
 ####################################################
+width: 40rem; margin: 0 auto;
 */
 
 /*

@@ -11,11 +11,14 @@ class ObjectDetailMixin:
     template = None
 
     def get(self, request, slug):
-        profile = Profile.objects.get(user=request.user)
-        #post = Post.objects.get(slug__iexact=slug)
-        obj = get_object_or_404(self.model, slug__iexact=slug)
-        return render(request, self.template,
-                      context={'profile': profile, self.model.__name__.lower(): obj, 'admin_object': obj})
+        if request.user.is_authenticated:
+            profile = Profile.objects.get(user=request.user)
+            #post = Post.objects.get(slug__iexact=slug)
+            obj = get_object_or_404(self.model, slug__iexact=slug)
+            return render(request, self.template, context={'profile': profile, self.model.__name__.lower(): obj, 'admin_object': obj})
+        else:
+            obj = get_object_or_404(self.model, slug__iexact=slug)
+            return render(request, self.template, context={self.model.__name__.lower(): obj})
 
 
 class ObjectDeleteMixin:

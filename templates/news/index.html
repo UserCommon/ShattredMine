@@ -6,11 +6,11 @@
 
         {% block content %}
           <div class="container">
-            <h1 class='mb-2 mt-2 text-center'>Новости </h1>
-            {% for post in posts %}
+            <h1 class='mb-3 mt-2 text-center'>Новости: </h1>
+                {% for post in posts %}
 
-              {% include 'news/includes/post_card_template.html'%}
+                  {% include 'news/includes/post_card_template.html'%}
 
-            {% endfor %}
+                {% endfor %}
           </div>
         {% endblock %}
