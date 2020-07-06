@@ -16,6 +16,7 @@ from django.contrib.auth import authenticate, login
 from .models import *
 from django.http import HttpResponse, HttpResponseRedirect
 
+from rest_framework 
 
 class ErrorView(View):
     template_name = 'account/error.html'

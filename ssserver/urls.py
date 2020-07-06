@@ -22,8 +22,9 @@ from .views import redirect_blog
 
 urlpatterns = [
     path('', redirect_blog),
-    path('admin/', admin.site.urls),
-    path('main/', include('mainapp.urls'), name='main'),
-    path('accounts/', include('accounts.urls')),
-    path('membership/', include('buy.urls')),
+    path('apiv1/admin/', admin.site.urls),
+    path('apiv1/main/', include('mainapp.urls'), name='main'),
+    path('apiv1/accounts/', include('accounts.urls')),
+    path('apiv1/membership/', include('buy.urls')),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
