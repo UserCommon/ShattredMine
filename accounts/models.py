@@ -1,5 +1,6 @@
 import os
 
+from django.contrib.auth.models import User
 from PIL import Image
 from django.conf import settings
 from django.contrib.auth.models import AbstractBaseUser
@@ -10,6 +11,8 @@ from django.dispatch import receiver
 from slugify import slugify
 
 from mainapp.models import *
+
+from django.db import models
 
 from django.conf.urls import url, include
 from django.contrib.auth.models import User
@@ -23,6 +26,8 @@ class Membership(models.Model):
     time = models
     amount =
 '''
+User._meta.get_field('email')._unique = True
+
 
 
 def profile_file_name(instance, filename):
@@ -40,8 +45,8 @@ def profile_thumb_name(instance, filename):
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, null=True)
     subscription = models.BooleanField(default=False)
-    skin = models.ImageField(upload_to='media/profile/', default='media/profile/steve.png')
-    skin_thumb = models.CharField('Thumbnail image', max_length=255, blank=True, default="media/profile\steve_100x100.png")
+    skin = models.ImageField(upload_to='media/profile', default='media/profile/steve.png')
+    skin_thumb = models.CharField('Thumbnail image', max_length=255, blank=True, default="media/profile/steve_100x100.png")
     is_media = models.BooleanField(default=False)
 
     #    email = models.EmailField(blank=True)

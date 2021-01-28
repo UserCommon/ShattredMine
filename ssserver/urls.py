@@ -18,13 +18,12 @@ from django.urls import path
 from django.urls import include
 from django.conf.urls.static import static
 from django.conf import settings
-from .views import redirect_blog
+from .views import MainApiView
 
 urlpatterns = [
-    path('', redirect_blog),
+    path('', MainApiView.as_view()),
     path('apiv1/admin/', admin.site.urls),
-    path('apiv1/main/', include('mainapp.urls'), name='main'),
-    path('apiv1/accounts/', include('accounts.urls')),
-    path('apiv1/membership/', include('buy.urls')),
+    path('apiv1/', include('mainapp.urls')),
+    path('apiv1/', include('accounts.urls')),
+    path('apiv1/', include('buy.urls')),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
-

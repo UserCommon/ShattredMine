@@ -47,7 +47,7 @@ class Post(models.Model):
 # eta -->
 
     def save(self, *args, **kwargs):
-        if not self.id:
+        if not self.slug:
             self.slug = gen_slug(self.title)
         super().save(*args, **kwargs)
 

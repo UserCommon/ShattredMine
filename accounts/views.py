@@ -16,122 +16,89 @@ from django.contrib.auth import authenticate, login
 from .models import *
 from django.http import HttpResponse, HttpResponseRedirect
 
-from rest_framework 
 
-class ErrorView(View):
-    template_name = 'account/error.html'
+from rest_framework.parsers import MultiPartParser, FileUploadParser, FormParser
+from rest_framework.response import Response
+from rest_framework.views import APIView
+from rest_framework import generics
+from rest_framework.permissions import IsAuthenticated, AllowAny, IsAdminUser, BasePermission
 
-    def get(self, request):
-        context = {}
-        return render(request, self.template_name, context)
+from rest_framework.exceptions import PermissionDenied
 
-
-class SuccessView(View):
-    template_name = 'account/success.html'
-
-    def get(self, request):
-        context = {}
-        return render(request, self.template_name, context)
+from .serializers import *
+from .permissions import *
 
 
-class MainView(View):
-    template_name = 'account/profile.html'
+class IsProfileOwner(BasePermission):
 
-    def get(self, request):
-        if request.user.is_authenticated:
-            profile = Profile.objects.get(user=request.user)
-            form = ProfileForm()
-            context = {'profile': profile, 'form': form}
-            return render(request, self.template_name, context)
-        else:
-            return render(request, self.template_name)
-
-    def post(self, request):
-        profile = Profile.objects.all()
-        bound_form = ProfileForm(request.POST, request.FILES)
-#        context = {'profile': profile, 'bound_form': bound_form}
-        if bound_form.is_valid():
-            profile = Profile.objects.get(user=request.user)
-            profile.skin = request.FILES['skin']
-            profile.save()
-            Profile.objects.filter().update(skin=profile.skin)
-            return HttpResponseRedirect('/accounts/')
-        return render(request, self.template_name, context={'profile': profile, 'bound_form': bound_form})
+    def has_object_permission(self, request, view, obj):
+        return obj.user == request.user
 
 
-class LoginView(View):
-    template_name = 'account/login.html'
-    template_error = 'account/Error.html'
+class IsUserOwner(BasePermission):
+
+    def has_object_permission(self, request, view, obj):
+        return User == request.user
+
+
+class UserConfirm(APIView):
 
     def get(self, request):
-        user = Profile()
-        if not request.user.is_authenticated:
-            form = LoginForm()
-            return render(request, self.template_name, {'form': form})
-        else:
-            return render(request, self.template_error)
-
-    def post(self, request):
-        username = request.POST['username']
-        password = request.POST['password']
-        user = authenticate(username=username, password=password)
-
-        if user is not None:
-            if user.is_active:
-                login(request, user)
-                return HttpResponseRedirect('/accounts/')
-            else:
-                return HttpResponse("Inactive user.")
-        else:
-            return HttpResponseRedirect('/accounts/login/')
-            return render(request, self.template_name, {'form': form})
+        pass
 
 
-class RegistrationView(View):
-    template_name = 'account/registration.html'
-    template_error = 'account/Error.html'
+class UserViewList(generics.ListAPIView):
+    permission_classes = [AllowAny, ]
+    serializer_class = UserListSerializer
+    queryset = User.objects.all().order_by('-date_joined')
 
+
+class UserRetrieveView(generics.RetrieveAPIView):
+    permission_classes = [IsUserOwner, ]
+    queryset = User.objects.all()
+    serializer_class = UserDetailSerializer
+
+
+class UserCreateView(generics.CreateAPIView):
+    permission_classes = [AllowAny, ]
+    serializer_class = CreateUserSerializer
+    queryset = User.objects.all()
+
+
+class ProfileViewList(generics.ListAPIView):
+    permission_classes = [AllowAny, ]
+    queryset = Profile.objects.all()
+    serializer_class = ProfileListSerializer
+
+
+class ProfileRetrieveView(generics.RetrieveAPIView):
+    permission_classes = [IsProfileOwner, ]
+    serializer_class = ProfileDetailSerializer
+    queryset = Profile.objects.all()
+
+
+class ProfileUpdateView(generics.UpdateAPIView):
+    permission_classes = [IsProfileOwner, ]
+    serializer_class = ProfileUpdateSerializer
+    queryset = Profile.objects.all()
+
+
+class UserLogoutView(APIView):
     def get(self, request):
-        if not request.user.is_authenticated:
-            form = RegisterForm()
-            return render(request, self.template_name, {'form': form})
-        else:
-            return render(request, self.template_error)
-
-    def post(self, request):
-        bound_form = RegisterForm(request.POST)
-        if bound_form.is_valid():
-            user = bound_form.save(commit=False)
-            user.save()
-            return HttpResponseRedirect('/accounts/')
-        return render(request, self.template_name, context={'bound_form': bound_form})
+        pass
 
 
-class LogoutView(View):
-    template_name = 'account/logout.html'
-
+class ProfileInfoView(APIView):
     def get(self, request):
-        context = {}
-        return render(request, self.template_name, context)
+        pass
 
 
-class FullLogoutView(View):
-
-    def get(self, request):
-        logout(request)
-        return HttpResponseRedirect('/accounts/')
-
-
-class AccountListView(View):
-    template_name = 'account/accountlist.html'
-    template_error = 'account/error.html'
-
-    def get(self, request):
-        user = Profile()
-        context = {}
-        if request.user.is_staff:
-            return render(request, self.template_name, context)
-        else:
-            return render(request, self.template_error, context)
-
-# Create your views here.
+class UserActivate(APIView):
+    def get (self, request, uid, token):
+        protocol = 'https://' if request.is_secure() else 'http://'
+        web_url = protocol + request.get_host()
+        post_url = web_url + "/auth/users/activate/"
+        post_data = {'uid': uid, 'token': token}
+        result = requests.post(post_url, data = post_data)
+        content = result.text()
+        return Response(content)
