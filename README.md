@@ -1,3 +1,3 @@
 # ShattredMine
-site for minecraft server
+web-site for minecraft server
 REST API ver
